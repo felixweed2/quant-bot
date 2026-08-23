@@ -1,0 +1,35 @@
+# Exchange API Configuration
+# RENAME TO exchanges.yaml AND FILL IN YOUR CREDENTIALS
+# NEVER commit exchanges.yaml to version control!
+
+binance:
+  api_key: "your_binance_api_key_here"
+  api_secret: "your_binance_api_secret_here"
+  sandbox: false
+  testnet: false
+
+kraken:
+  api_key: "your_kraken_api_key_here"
+  api_secret: "your_kraken_api_secret_here"
+  sandbox: false
+
+coinbase:
+  api_key: "your_coinbase_api_key_here"
+  api_secret: "your_coinbase_api_secret_here"
+  passphrase: "your_coinbase_passphrase_here"
+  sandbox: false
+
+ftx:
+  api_key: "your_ftx_api_key_here"
+  api_secret: "your_ftx_api_secret_here"
+  subaccount: ""
+  sandbox: false
+
+# Starting capital (for simulated/paper trading)
+initial_capital: 10000
+
+# Notification settings
+notifications:
+  telegram_chat_id: "your_chat_id"
+  email_recipient: "your_email@example.com"
+  slack_webhook_url: "https://hooks.slack.com/services/..."

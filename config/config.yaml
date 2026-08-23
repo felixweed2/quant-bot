@@ -1,0 +1,128 @@
+# Quant Bot Configuration
+
+bot:
+  name: "Arbitrage Bot"
+  version: "1.0.0"
+  mode: "paper"  # paper or live
+  debug: true
+
+trading:
+  # Replication triggers
+  min_profit_threshold: 0.005        # Minimum 0.5% daily profit
+  profitable_days_trigger: 7         # Days until replication
+  profitable_days_window: 30         # Rolling window in days
+  
+  # Self-destruct triggers
+  losing_days_trigger: 5             # Consecutive losing days
+  max_loss_percentage: 0.15          # 15% max loss in period
+  max_loss_period_days: 30           # 30-day period
+  
+  # Bot management
+  max_concurrent_bots: 5             # Maximum concurrent instances
+  max_replication_depth: 3           # Generation limit
+  
+  # Trading pairs
+  trading_pairs:
+    - BTC/USDT
+    - ETH/USDT
+    - SOL/USDT
+    - XRP/USDT
+  
+  # Execution
+  min_profit_margin: 0.002           # 0.2% minimum arbitrage spread
+  order_type: "limit"                # limit or market
+  order_timeout: 30                  # Seconds to fill order
+
+risk:
+  # Position sizing
+  max_position_size_usd: 1000        # Max per trade
+  max_exposure_pct: 0.30             # 30% of total capital
+  
+  # Stop loss & take profit
+  stop_loss_pct: 0.02                # 2% stop loss
+  take_profit_pct: 0.01              # 1% take profit
+  trailing_stop_pct: 0.015           # Trailing stop
+  
+  # Exposure limits
+  max_open_orders: 10
+  max_daily_trades: 50
+  max_daily_loss_pct: 0.05           # 5% daily max loss
+
+exchanges:
+  binance:
+    enabled: true
+    fee_pct: 0.001                   # 0.1% trading fee
+    min_notional: 10                 # Minimum order value USD
+    rate_limit: 100                  # Requests per second
+  
+  kraken:
+    enabled: true
+    fee_pct: 0.0016                  # 0.16% trading fee
+    min_notional: 10
+    rate_limit: 50
+  
+  coinbase:
+    enabled: true
+    fee_pct: 0.005                   # 0.5% trading fee
+    min_notional: 10
+    rate_limit: 15
+  
+  ftx:
+    enabled: false
+    fee_pct: 0.0004
+    min_notional: 10
+    rate_limit: 30
+
+monitoring:
+  # Dashboard
+  dashboard_port: 5000
+  refresh_interval: 5                # Seconds
+  
+  # Logging
+  log_level: "INFO"
+  log_file: "logs/bot.log"
+  max_log_size_mb: 100
+  log_backup_count: 10
+  
+  # Alerts
+  slack_webhook: ""                  # Optional Slack integration
+  telegram_token: ""                 # Optional Telegram bot
+  email_alerts: false
+  alert_on_replication: true
+  alert_on_self_destruct: true
+  alert_on_large_trades: true
+  alert_large_trade_usd: 5000
+
+backtest:
+  start_date: "2023-01-01"
+  end_date: "2024-01-01"
+  initial_capital: 10000
+  commission_pct: 0.001              # 0.1% commission
+  slippage_pct: 0.0005               # 0.05% slippage
+  
+database:
+  type: "postgresql"                 # sqlite, postgresql
+  host: "localhost"
+  port: 5432
+  name: "quant_bot"
+  user: "quant_user"
+  password: "change_me"
+  
+  # For SQLite (local development)
+  # sqlite_path: "data/quant_bot.db"
+
+cache:
+  type: "redis"                      # redis, memory
+  host: "localhost"
+  port: 6379
+  ttl_seconds: 60
+
+scheduler:
+  # Price check interval
+  price_check_interval: 10           # Seconds
+  
+  # P&L calculation
+  pnl_check_interval: 3600           # Seconds (hourly)
+  
+  # Replication/Self-destruct check
+  health_check_interval: 86400       # Seconds (daily)
